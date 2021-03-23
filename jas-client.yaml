@@ -1,0 +1,1378 @@
+
+servers:
+- 
+  description: Default Local Development Server
+  url: http://localhost:10081
+security:
+- api_key: []
+- jwt: []
+components: 
+  schemas:
+    EntityDefinition: 
+      required:
+      - description
+      properties:
+        created: 
+          example: 2016-08-22T15:40-05:00
+          format: date-time
+          type: string
+        description: 
+          example: AutoId IAM User EntityDefinition
+          type: string
+        schemas: 
+          description: Schema for entity as ElasticSearch type mappings including
+            metadata
+          example: '{ "mappings": { "properties" : { "name": { "type" : "keyword"
+            } } }}'
+          type: object
+      description: EntityDefinition Object
+      type: object
+    EntityDefinitionCreateResult: 
+      required:
+      - description
+      - name
+      - namespace
+      - tenantId
+      - version
+      properties:
+        created: 
+          example: 2016-08-22T15:40-05:00
+          format: date-time
+          type: string
+        description: 
+          example: AutoId IAM User EntityDefinition
+          type: string
+        schemas: 
+          description: Schema for entity as ElasticSearch type mappings including
+            metadata
+          example: '{ "mappings": { "properties" : { "name": { "type" : "keyword"
+            } } }}'
+          type: object
+        name: 
+          example: user
+          type: string
+        namespace: 
+          example: /iam/opendj/
+          type: string
+        tenantId: 
+          example: cf357c12-c490-479e-8689-75dd7d50d1ce
+          type: string
+        version: 
+          example: '1'
+          format: int32
+          type: integer
+      type: object
+    EmailServiceConfigRequest: 
+      required:
+      - fromDisplayName
+      - fromEmailAddress
+      - host
+      - password
+      - port
+      - transportStrategy
+      - userName
+      properties:
+        fromDisplayName: 
+          example: Forgerock Inc
+          type: string
+        fromEmailAddress: 
+          example: noreply@forgerock.com
+          type: string
+        host: 
+          example: mail.forgerock.com
+          type: string
+        password: 
+          example: password
+          type: string
+        port: 
+          example: '587'
+          format: int32
+          type: integer
+        transportStrategy: 
+          example: SMTP_TLS
+          type: string
+        userName: 
+          example: emailAdmin
+          type: string
+      description: Email service configuration request
+      type: object
+    EmailTemplateRequest: 
+      required:
+      - body
+      - subject
+      - type
+      properties:
+        body: 
+          example: Email body
+          type: string
+        subject: 
+          example: Email subject
+          type: string
+        type: 
+          example: HTML
+          type: string
+      description: Email template request
+      type: object
+    SendEmailRequest: 
+      required:
+      - locale
+      - parameters
+      - templateName
+      - toEmail
+      properties:
+        locale: 
+          example: en
+          type: string
+        parameters: 
+          example: '{"company":"Forgerock","userName":"user"}'
+          type: object
+        templateName: 
+          example: Welcome
+          type: string
+        toEmail: 
+          example: user@example.com
+          type: string
+      description: send email request
+      type: object
+    IngestFolderWorkflow: 
+      required:
+      - bucketName
+      - directoryName
+      - domainName
+      properties:
+        bucketName: 
+          example: gcpBucketName
+          type: string
+        directoryName: 
+          example: Directory Name
+          type: string
+        domainName: 
+          example: Domain Name
+          type: string
+        timeout: 
+          example: Workflow Time Out
+          format: int32
+          type: string
+      description: Start workflow request from a GCP folder
+      type: object
+    StartWorkflowRequest: 
+      required:
+      - arguments
+      - domain
+      - name
+      - taskList
+      - timeOut
+      properties:
+        arguments: 
+          example: '{"username":"user1", "department":"IT"}'
+          type: object
+        domain: 
+          example: cadenceDomain
+          type: string
+        name: 
+          example: featureConfigWorkflow
+          type: string
+        taskList: 
+          example: FeatureConfigTaskList
+          type: string
+        timeOut: 
+          example: '60'
+          format: int32
+          type: integer
+      description: Start workflow request Object
+      type: object
+    Tenant: 
+      required:
+      - description
+      - name
+      properties:
+        created: 
+          example: 2016-08-22T15:40-05:00
+          format: date-time
+          type: string
+        description: 
+          example: AutoId Customer
+          type: string
+        id: 
+          example: de581490-e7a3-4c7e-a9b5-6ce4d8ee809f
+          format: uuid
+          pattern: '[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}'
+          type: string
+        name: 
+          example: autoidcustomer
+          maxLength: 80
+          type: string
+      description: Tenant Object
+      type: object
+    Namespace: 
+      required:
+      - description
+      - name
+      properties:
+        created: 
+          example: 2016-08-22T15:40-05:00
+          format: date-time
+          type: string
+        description: 
+          example: AutoId IAM Namespace
+          type: string
+        name: 
+          example: iam
+          maxLength: 80
+          type: string
+      description: Namespace Object
+      type: object
+    EntityInstanceDeleteRequest: 
+      required:
+      - branch
+      - contextId
+      - entityData
+      - indexingRequired
+      - tags
+      properties:
+        branch: 
+          example: plan
+          type: string
+        contextId: 
+          example: JOB-1234
+          type: string
+        entityData: 
+          example: '[{"username":"user1", "department":"IT"},{"username":"user2",
+            "department":"HR"}]'
+          items:  {}
+          type: array
+        indexInSync: 
+          example: 'true'
+          type: boolean
+        indexingRequired: 
+          example: 'true'
+          type: boolean
+        tags: 
+          example: '{"org":"FR/IT", "category":"SOX"}'
+          type: object
+      description: EntityInstanceDeleteRequest object
+      type: object
+    EntityInstancePersistResult: 
+      properties:
+        indexName: 
+          example: user
+          type: string
+        indices: 
+          example: '{"log": "autoid_iam_user", "latest": "autoid_iam_user_latest"}'
+          type: object
+      description: EntityInstancePersistResult object
+      type: object
+    EntityTypeMetadata: 
+      required:
+      - entityDefinitionName
+      - indices
+      - namespaceName
+      - schema
+      - tenantName
+      - version
+      properties:
+        entityDefinitionName: 
+          example: user
+          type: string
+        indices: 
+          example: |-
+            "indices": {
+                    "latest": "autonomous-iam_iam_testuser_latest",
+                    "log": "autonomous-iam_iam_testuser"
+                }
+          type: object
+        namespaceName: 
+          example: /iam
+          type: string
+        schema: 
+          example: '{ "properties" : { "name": { "type" : "keyword" } } }'
+          type: object
+        tenantName: 
+          example: tenant-1
+          type: string
+        version: 
+          example: '1'
+          format: int32
+          type: integer
+      description: EntityTypeMetadata Object
+      type: object
+    EntityInstancePersistRequest: 
+      required:
+      - branch
+      - contextId
+      - entityData
+      - indexingRequired
+      - tags
+      properties:
+        branch: 
+          example: plan
+          type: string
+        contextId: 
+          example: JOB-1234
+          type: string
+        entityData: 
+          example: '[{"username":"user1", "department":"IT"},{"username":"user2",
+            "department":"HR"}]'
+          items:  {}
+          type: array
+        indexInSync: 
+          example: 'true'
+          type: boolean
+        indexingRequired: 
+          example: 'true'
+          type: boolean
+        tags: 
+          example: '{"org":"FR/IT", "category":"SOX"}'
+          type: object
+        schema: 
+          example: '{ "properties": { "attr3": { "type" : "ip" } } } '
+          type: object
+      description: EntityInstancePersistRequest object
+      type: object
+    EntityInstanceQueryRequest: 
+      required:
+      - query
+      properties:
+        indexName: 
+          example: user
+          type: string
+        query: 
+          example: '{"query": {    "bool": {      "filter": [        {        "term":
+            {            "userId.keyword": "user1"          }        }      ]    }  }}'
+          type: object
+      description: EntityInstanceQueryRequest object
+      type: object
+    EntityInstanceUpdateRequest: 
+      required:
+      - branch
+      - contextId
+      - entityData
+      - indexingRequired
+      - tags
+      properties:
+        branch: 
+          example: plan
+          type: string
+        contextId: 
+          example: JOB-1234
+          type: string
+        entityData: 
+          example: '[{"username":"user1", "department":"IT"},{"username":"user2",
+            "department":"HR"}]'
+          items:  {}
+          type: array
+        indexInSync: 
+          example: 'true'
+          type: boolean
+        indexingRequired: 
+          example: 'true'
+          type: boolean
+        tags: 
+          example: '{"org":"FR/IT", "category":"SOX"}'
+          type: object
+      description: EntityInstanceUpdateRequest object
+      type: object
+  securitySchemes:
+    api_key: 
+      description: ' API Security'
+      in: header
+      name: Authorization
+      type: apiKey
+    jwt: 
+      bearerFormat: JWT
+      description: JWT Security
+      scheme: bearer
+      type: http
+info: 
+  contact: 
+    email: support@forgerock.com
+    name: AutoID
+    url: https://www.forgerock.com
+  description: Command and Query API
+  license: 
+    name: ForgeRock Commercial License
+  termsOfService: https://www.forgerock.com
+  title: Java API Service
+  version: '1.0'
+openapi: 3.0.1
+paths:
+  /common/email/config: 
+    post: 
+      parameters:
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: saveEmailServiceConfiguration
+      requestBody: 
+        content:
+          application/json: 
+            schema: 
+              $ref: '#/components/schemas/EmailServiceConfigRequest'
+        description: Email Service Configuration
+        required: true
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema:  {}
+          description: Email service configuration
+      summary: Save email service configuration
+    get: 
+      parameters:
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: getEmailServiceConfig
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema:  {}
+          description: Email service configuration
+      summary: Get email service configuration
+    delete: 
+      parameters:
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: deleteEmailServiceConfiguration
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema:  {}
+          description: Email service config
+      summary: Delete email service configuration
+  /common/email/send: 
+    post: 
+      parameters:
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: sendEmail
+      requestBody: 
+        content:
+          application/json: 
+            schema: 
+              $ref: '#/components/schemas/SendEmailRequest'
+        description: Send email request
+        required: true
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                $ref: '#/components/schemas/SendEmailRequest'
+          description: Send email request
+      summary: Send email using email template
+  /common/email/template/{templateName}/{locale}: 
+    post: 
+      parameters:
+      - 
+        in: path
+        name: locale
+        required: true
+        schema: 
+          type: string
+      - 
+        in: path
+        name: templateName
+        required: true
+        schema: 
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: saveEmailTemplate
+      requestBody: 
+        content:
+          application/json: 
+            schema: 
+              $ref: '#/components/schemas/EmailTemplateRequest'
+        description: Email Service Configuration
+        required: true
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema:  {}
+          description: Email template
+      summary: Save email template
+    get: 
+      parameters:
+      - 
+        in: path
+        name: locale
+        required: true
+        schema: 
+          type: string
+      - 
+        in: path
+        name: templateName
+        required: true
+        schema: 
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: getEmailTemplate
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema:  {}
+          description: Email template
+      summary: Get email template
+    delete: 
+      parameters:
+      - 
+        in: path
+        name: locale
+        required: true
+        schema: 
+          type: string
+      - 
+        in: path
+        name: templateName
+        required: true
+        schema: 
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: deleteEmailTemplate
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema:  {}
+          description: Email template
+      summary: Delete email template
+  /config/{key}: 
+    get: 
+      parameters:
+      - 
+        in: path
+        name: key
+        required: true
+        schema: 
+          pattern: '[a-zA-Z0-9-_/*]*'
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: readConfig
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                type: object
+          description: Result of read config
+      summary: Read Configuration
+    put: 
+      parameters:
+      - 
+        in: path
+        name: key
+        required: true
+        schema: 
+          pattern: '[a-zA-Z0-9-_/*]*'
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: storeConfig
+      requestBody: 
+        content:
+          application/json: 
+            schema: 
+              type: object
+        description: Store Config value
+        required: true
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                type: object
+          description: Result of store config
+      summary: Store Configuration
+  /entity/count{entityType}: 
+    get: 
+      parameters:
+      - 
+        in: path
+        name: entityType
+        required: true
+        schema: 
+          pattern: '[a-zA-Z0-9-_/*]+'
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: getEntityCount
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                type: object
+          description: Entity counts for entity type
+      summary: Get entity counts for an entity type
+  /entity/delete{entityType}: 
+    delete: 
+      parameters:
+      - 
+        in: path
+        name: entityType
+        required: true
+        schema: 
+          pattern: '[a-zA-Z0-9-_/*]+'
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: deleteEntityData
+      requestBody: 
+        content:
+          application/json: 
+            schema: 
+              $ref: '#/components/schemas/EntityInstanceDeleteRequest'
+        description: Entity Instance Delete Request object
+        required: true
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                $ref: '#/components/schemas/EntityInstancePersistResult'
+          description: Result of delete request
+      summary: Delete entity collection
+  /entity/metadata{entityType}: 
+    get: 
+      parameters:
+      - 
+        in: path
+        name: entityType
+        required: true
+        schema: 
+          pattern: '[a-zA-Z0-9-_/*]+'
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: getMetadata
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                $ref: '#/components/schemas/EntityTypeMetadata'
+          description: Metadata for entity type
+      summary: Get metadata for an entity type
+  /entity/persist{entityType}: 
+    post: 
+      parameters:
+      - 
+        in: path
+        name: entityType
+        required: true
+        schema: 
+          pattern: '[a-zA-Z0-9-_/*]+'
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: persistEntityData
+      requestBody: 
+        content:
+          application/json: 
+            schema: 
+              $ref: '#/components/schemas/EntityInstancePersistRequest'
+        description: Entity Instance Persist Request object
+        required: true
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                $ref: '#/components/schemas/EntityInstancePersistResult'
+          description: Result of Persist request
+      summary: Persists entity collection
+  /entity/search{entityType}: 
+    post: 
+      parameters:
+      - 
+        in: path
+        name: entityType
+        required: true
+        schema: 
+          pattern: '[a-zA-Z0-9-_/*]+'
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: searchEntityData
+      requestBody: 
+        content:
+          application/json: 
+            schema: 
+              $ref: '#/components/schemas/EntityInstanceQueryRequest'
+        description: Entity Instance Query Request object
+        required: true
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                type: object
+          description: Result of Search request
+      summary: Search entity index
+  /entity/truncate{entityType}: 
+    delete: 
+      parameters:
+      - 
+        in: path
+        name: entityType
+        required: true
+        schema: 
+          pattern: '[a-zA-Z0-9-_/*]+'
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: truncateEntityType
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                type: object
+          description: Truncated entity counts for entity type
+      summary: Truncate all entities from an entity type
+  /entity/update{entityType}: 
+    patch: 
+      parameters:
+      - 
+        in: path
+        name: entityType
+        required: true
+        schema: 
+          pattern: '[a-zA-Z0-9-_/*]+'
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: updateEntityData
+      requestBody: 
+        content:
+          application/json: 
+            schema: 
+              $ref: '#/components/schemas/EntityInstanceUpdateRequest'
+        description: Entity Instance Update Request object
+        required: true
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                $ref: '#/components/schemas/EntityInstancePersistResult'
+          description: Result of Update request
+      summary: Update entity collection
+  /entity/upsert{entityType}: 
+    patch: 
+      parameters:
+      - 
+        in: path
+        name: entityType
+        required: true
+        schema: 
+          pattern: '[a-zA-Z0-9-_/*]+'
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: upsertEntityData
+      requestBody: 
+        content:
+          application/json: 
+            schema: 
+              $ref: '#/components/schemas/EntityInstanceUpdateRequest'
+        description: Entity Instance Update Request object
+        required: true
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                $ref: '#/components/schemas/EntityInstancePersistResult'
+          description: Result of Upsert request
+      summary: Upsert entity collection
+  /entityDefinitions: 
+    get: 
+      parameters:
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: getAllEntityDefinitions
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                items: 
+                  $ref: '#/components/schemas/EntityDefinitionCreateResult'
+                type: array
+          description: List of entityDefinitions
+      summary: Get all entity definitions
+  /entityDefinitions/discover/{entityType}: 
+    get: 
+      parameters:
+      - 
+        in: path
+        name: entityType
+        required: true
+        schema: 
+          pattern: '[a-zA-Z0-9-_/*]+'
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: discoverEntityDefinitionSchema
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                $ref: '#/components/schemas/EntityDefinitionCreateResult'
+          description: EntityDefinition object
+      summary: Discover schema for an existing entity definition
+  /entityDefinitions/{entityType}: 
+    post: 
+      parameters:
+      - 
+        in: path
+        name: entityType
+        required: true
+        schema: 
+          pattern: '[a-zA-Z0-9-_/*]+'
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: createNewEntityDefinition
+      requestBody: 
+        content:
+          application/json: 
+            schema: 
+              $ref: '#/components/schemas/EntityDefinition'
+        description: New entity definition object
+        required: true
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                $ref: '#/components/schemas/EntityDefinitionCreateResult'
+          description: EntityDefinition object
+      summary: Creates a new entity definition
+    get: 
+      parameters:
+      - 
+        in: path
+        name: entityType
+        required: true
+        schema: 
+          pattern: '[a-zA-Z0-9-_/*]+'
+          type: string
+      - 
+        in: query
+        name: latest
+        required: false
+        schema: 
+          type: boolean
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: getEntityDefinitionByName
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                items: 
+                  $ref: '#/components/schemas/EntityDefinitionCreateResult'
+                type: array
+          description: EntityDefinition object
+      summary: Get an existing entity definition
+    put: 
+      parameters:
+      - 
+        in: path
+        name: entityType
+        required: true
+        schema: 
+          pattern: '[a-zA-Z0-9-_/*]+'
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: updateEntityDefinition
+      requestBody: 
+        content:
+          application/json: 
+            schema: 
+              $ref: '#/components/schemas/EntityDefinition'
+        description: New entity definition object
+        required: true
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                $ref: '#/components/schemas/EntityDefinitionCreateResult'
+          description: EntityDefinition object
+      summary: Updates an existing entity definition
+  /featurization/chi-square-matrix/{index}: 
+    get: 
+      parameters:
+      - 
+        in: path
+        name: index
+        required: true
+        schema: 
+          type: string
+      - 
+        in: query
+        name: wfid
+        schema: 
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: getChiSquareMatrix
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                type: object
+          description: Chi-square matrix JSON
+      summary: Get Chi-square matrix
+  /featurization/feature-config/{index}: 
+    get: 
+      parameters:
+      - 
+        in: path
+        name: index
+        required: true
+        schema: 
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: getFeatureConfig
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                type: object
+          description: Chi-square matrix JSON
+      summary: Get feature config
+  /featurization/feature-stats/{index}: 
+    get: 
+      parameters:
+      - 
+        in: path
+        name: index
+        required: true
+        schema: 
+          type: string
+      - 
+        in: query
+        name: wfid
+        schema: 
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: getFeatureStats
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                type: object
+          description: Feature stats JSON
+      summary: Get feature stats
+  /featurization/indices: 
+    get: 
+      parameters:
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: getIndices
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                type: object
+          description: Chi-square matrix JSON
+      summary: Get a list of indices for feature exploration
+  /featurization/workflow-status/{wfid}: 
+    get: 
+      parameters:
+      - 
+        in: path
+        name: wfid
+        required: true
+        schema: 
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: getWorkflowStatus
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                type: object
+          description: Chi-square matrix JSON
+      summary: Get workflow status
+  /ingest: 
+    post: 
+      parameters:
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: startIngestWorkflow
+      requestBody: 
+        content:
+          application/json: 
+            schema: 
+              $ref: '#/components/schemas/IngestFolderWorkflow'
+        description: GCP Bucket Details
+        required: true
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                type: object
+          description: Result of Ingestion Workflow request
+      summary: Start Ingesting from GCP Bucket
+  /namespaces: 
+    post: 
+      parameters:
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: createNewNamespace
+      requestBody: 
+        content:
+          application/json: 
+            schema: 
+              $ref: '#/components/schemas/Namespace'
+        description: New namespace object
+        required: true
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                $ref: '#/components/schemas/Namespace'
+          description: Namespace object
+      summary: Creates a new namespace
+    get: 
+      parameters:
+      - 
+        in: query
+        name: name
+        required: true
+        schema: 
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: getNamespaceByName
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                $ref: '#/components/schemas/Namespace'
+          description: Namespace object
+      summary: Get an existing namespace
+  /risk-scores/{index}: 
+    get: 
+      parameters:
+      - 
+        in: path
+        name: index
+        required: true
+        schema: 
+          type: string
+      - 
+        in: query
+        name: bottom-right-lat
+        schema: 
+          type: string
+      - 
+        in: query
+        name: bottom-right-lon
+        schema: 
+          type: string
+      - 
+        in: query
+        name: max-geo-points
+        schema: 
+          format: int32
+          type: integer
+      - 
+        in: query
+        name: top-left-lat
+        schema: 
+          type: string
+      - 
+        in: query
+        name: top-left-lon
+        schema: 
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: getRiskScoreForGeobounds
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                type: object
+          description: Risk scores
+      summary: Get risk scores for geo bounds
+  /tenants: 
+    post: 
+      operationId: createNewTenant
+      requestBody: 
+        content:
+          application/json: 
+            schema: 
+              $ref: '#/components/schemas/Tenant'
+        description: New tenant object
+        required: true
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                $ref: '#/components/schemas/Tenant'
+          description: Tenant object
+      summary: Creates a new tenant
+    get: 
+      description: Returns all tenants in the AutoID deployment
+      operationId: getAllTenants
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                items: 
+                  $ref: '#/components/schemas/Tenant'
+                type: array
+          description: Collection of Tenant objects
+      summary: Returns all tenants
+  /tenants/{tenantId}: 
+    get: 
+      parameters:
+      - 
+        in: path
+        name: tenantId
+        required: true
+        schema: 
+          type: string
+      operationId: getTenantById
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                $ref: '#/components/schemas/Tenant'
+          description: Tenant object
+      summary: Get tenant by id
+    delete: 
+      parameters:
+      - 
+        in: path
+        name: tenantId
+        required: true
+        schema: 
+          type: string
+      operationId: deleteTenantById
+      responses:
+        '204': 
+          description: No Content
+      summary: Delete tenant by id
+  /workflow: 
+    post: 
+      parameters:
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: startWorkflow
+      requestBody: 
+        content:
+          application/json: 
+            schema: 
+              $ref: '#/components/schemas/StartWorkflowRequest'
+        description: Start Workflow Request object
+        required: true
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                type: object
+          description: Result of workflow request
+      summary: Start Workflow
+  /workflow/{domain}/{workflowId}/{workflowRunId}/{workflowType}: 
+    get: 
+      parameters:
+      - 
+        in: path
+        name: domain
+        required: true
+        schema: 
+          type: string
+      - 
+        in: path
+        name: workflowId
+        required: true
+        schema: 
+          type: string
+      - 
+        in: path
+        name: workflowRunId
+        required: true
+        schema: 
+          type: string
+      - 
+        in: path
+        name: workflowType
+        required: true
+        schema: 
+          type: string
+      - 
+        in: header
+        name: X-TENANT-ID
+        required: true
+        schema: 
+          type: string
+      operationId: getWorkflow
+      responses:
+        default: 
+          content:
+            application/json: 
+              schema: 
+                type: object
+          description: Result of workflow
+      summary: Get workflow result
